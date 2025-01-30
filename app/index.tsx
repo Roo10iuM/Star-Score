@@ -40,7 +40,7 @@ const Player = (props: any) => {
           }}
           activeOpacity={0.7}
         >
-          <Image style={{ width: 100, height: 100, flex: 1, resizeMode: 'contain' }} source={require('../assets/images/hpinc.png')} />
+          <Image style={{ width: 95, height: 95, flex: 1, resizeMode: 'contain' }} source={require('../assets/images/hpinc.png')} />
         </TouchableOpacity>
       </View>
 
@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     top: 0,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: Dimensions.get('screen').width,
+    height: Dimensions.get('screen').height,
     //flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
@@ -134,8 +134,11 @@ const styles = StyleSheet.create({
     textAlign: 'center', 
     color: 'white', 
     borderBottomWidth: 1, 
-    borderBottomColor: 'white', 
-    padding: 5 
+    borderBottomColor: 'white',
+    borderTopWidth: 1,
+    borderTopColor: 'white',
+    marginTop: 40,
+    padding: 0, 
   },
   scoreboard: {
     flexDirection: 'row',
