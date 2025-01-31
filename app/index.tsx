@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Text, View, Button, TextInput, StyleSheet, Image, ImageBackground, TouchableHighlight, Dimensions, StatusBar, TouchableOpacity } from "react-native";
+import { Text, View, TextInput, StyleSheet, Image, ImageBackground, TouchableOpacity, StatusBar } from "react-native";
 
 
 
@@ -19,7 +19,7 @@ const Player = (props: any) => {
       />
 
       <Text style={styles.health}>
-        {props.health - (parseInt(props.damage) || 0)}
+        {Math.abs(props.health - (parseInt(props.damage) || 0)) > 10000 ? 'Lose' : props.health - (parseInt(props.damage) || 0)}
       </Text>
 
       <View style={styles.inde}>
@@ -51,6 +51,7 @@ const Player = (props: any) => {
         onChangeText={newText => props.onChangeDamage(newText)}
         value={props.damage}
         inputMode='decimal'
+        maxLength={4}
       />
     </View>
   )
@@ -72,7 +73,6 @@ const Health = (props: any) => {
       source={require('../assets/images/space.jpg')}
       style={styles.container}
     >
-      <StatusBar backgroundColor='black' barStyle='dark-content'/>
       <Text style={styles.turnBar}>
         {((curTurn + 1) % 2 ? playerOneName || 'Player 1' : playerTwoName || 'Player 2').trim()} acts
       </Text>
@@ -119,26 +119,20 @@ const Health = (props: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: Dimensions.get('screen').width,
-    height: Dimensions.get('screen').height,
-    //flex: 1,
+    flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     padding: 10,
   },
   turnBar: {
-    fontSize: 40, 
-    textAlign: 'center', 
-    color: 'white', 
-    borderBottomWidth: 1, 
+    fontSize: 40,
+    textAlign: 'center',
+    color: 'white',
+    borderBottomWidth: 1,
     borderBottomColor: 'white',
     borderTopWidth: 1,
     borderTopColor: 'white',
-    marginTop: 40,
-    padding: 0, 
+    marginTop: StatusBar.currentHeight,
   },
   scoreboard: {
     flexDirection: 'row',
@@ -151,7 +145,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    //backgroundColor: 'green'
   },
   playerName: {
     fontSize: 40,
@@ -175,20 +168,18 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    //backgroundColor: 'red',
   },
   damageInput: {
     color: 'white',
     backgroundColor: 'rgba(0, 0, 0, 0.67)',
     width: 200,
-    //minHeight: 40,
     fontSize: 18,
     marginTop: 10,
     padding: 5,
     textAlign: 'center',
   },
   turnButton: {
-    backgroundColor: 'rgba(0, 0, 0, 0.67)', 
+    backgroundColor: 'rgba(0, 0, 0, 0.67)',
     height: 60,
     borderWidth: 1,
     borderRadius: 3,
@@ -202,5 +193,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
 });
+
 
 export default Health;
